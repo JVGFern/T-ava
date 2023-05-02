@@ -125,3 +125,11 @@ Além de ser mais eficiente e confiável do que o atual sistema da SATC, o T-Ava
 - Correção automática de questões objetivas;
 - Feedbacks detalhados para alunos e professores sobre o desempenho nas avaliações;
 - Armazenamento seguro e confiável de resultados e informações dos usuários.
+
+## Integrantes
+
+- Thiago Larangeira
+- Maria Eduarda Monteiro
+- João Vittor Gomes
+- Roger Henrique
+- Yuri Boppre
