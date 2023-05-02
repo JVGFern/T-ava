@@ -1,4 +1,4 @@
-##                                                              T-ava🎫
+##                                                                    T-ava🎫
 
 ## Descrição do Projeto →
 
@@ -10,7 +10,7 @@ O objetivo do T-Ava é oferecer um sistema de avaliação online mais eficiente 
 
 ## Estrutura do Projeto →
 
-## Telas de Usuário
+### Telas de Usuário
 | Tela de Login | 
 | --- |
 | Campo para inserção de e-mail |
@@ -33,7 +33,7 @@ O objetivo do T-Ava é oferecer um sistema de avaliação online mais eficiente 
 | Botão para enviar e-mail de recuperação de senha |
 | Link para voltar para tela de login |
 
-## Telas do Professor
+### Telas do Professor
 | Dashboard do Professor |
 | --- |
 | Botão para criar nova avaliação |
@@ -84,7 +84,7 @@ O objetivo do T-Ava é oferecer um sistema de avaliação online mais eficiente 
 | Botão para salvar alterações |
 | Botão para cancelar |
 
-## Telas do Aluno
+### Telas do Aluno
 | Dashboard do Aluno |
 | --- |
 | Lista de avaliações disponíveis |
