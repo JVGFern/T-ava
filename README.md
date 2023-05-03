@@ -130,6 +130,6 @@ Além de ser mais eficiente e confiável do que o atual sistema da SATC, o T-Ava
 
 - Thiago Larangeira
 - Maria Eduarda Monteiro
-- João Vittor Gomes
+- João Vittor Gomes Fernandes
 - Roger Henrique
 - Yuri Boppre
