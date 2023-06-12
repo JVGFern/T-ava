@@ -1,59 +1,79 @@
 import { useState, useRef, useEffect, useCallback, ReactNode } from "react";
 import { Outlet, Link, NavLink } from "react-router-dom";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export type Page = {
   path: string;
   element: ReactNode;
   name: string;
+  icon: ReactNode;
 };
 
-export interface PropsnavPage {
+export interface PropsNavPage {
   page: Page;
+  navOpen: boolean;
 }
 
 export interface PropsNavMenu {
   name: string;
   pages: Page[];
+  navOpen: boolean;
 }
 
-export function NavMenuPage({ page }: PropsnavPage) {
+export function NavMenuPage({ page, navOpen }: PropsNavPage) {
   return (
-    <Link className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" to={page.path}>
-      {page.name}
+    <Link
+      className="text-white text-1xl my-1 p-1 hover:bg-satc-menu-option rounded duration-250 inline-flex"
+      to={page.path}
+    >
+      {page.icon}
+      <a className={`${!navOpen && "scale-0"}`}>{page.name}</a>
     </Link>
   );
 }
 
-export function NavMenuHeader({ name, pages }: PropsNavMenu) {
+export function NavMenuHeader({ pages, navOpen }: PropsNavMenu) {
   return (
-    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 rounded-lg space-y-2">
-      <Link to="/" className="flex space-x-4">
+    <div className="flex flex-col mt-5">
+      {/* <Link to="/" className="">
         <img src="" className="object-scale-down h-20 w-20 rounded-full"></img>
-        <div className="dark:text-white flex flex-col text-gray-900 space-y-2">
+        <div className="">
           <a>nome do usuario</a>
           <a>email</a>
         </div>
-      </Link>
+      </Link> */}
 
-
-      <nav className="space-y-2 font-medium">
-        {pages.map((page) => (
-          <NavMenuPage page={page} />
-        ))}
-      </nav>
+      {pages.map((page, index) => (
+        <NavMenuPage key={index} page={page} navOpen={navOpen} />
+      ))}
     </div>
   );
 }
 
+//esse Componente serve mais como wrapper para a navegação
+//com o conteudo em si doq como menu de navegação
+// mudar o nome depois
 export default function NavMenu({ name, pages }: PropsNavMenu) {
+  const [navOpen, setNavOpen] = useState(true);
   return (
-    <>
-      <aside className="m-5 top-0 left-0 z-40 w-1/5 h-screen transition-transform -translate-x-full sm:translate-x-0 ">
-        <NavMenuHeader name={name} pages={pages} />
-      </aside>
+    <div className="flex">
+      <div
+        className={`bg-satc-green h-screen p-5 pt-8 
+          ${navOpen ? "w-72" : "w-20"} duration-300`}
+      >
+        <div className="inline-flex text-white text-4xl space-x-5">
+          <GiHamburgerMenu
+            className="cursor-pointer hover:bg-white hover:text-satc-green 
+              rounded duration-200 p-0.5 float-left block"
+            onClick={() => setNavOpen(!navOpen)}
+          />
+          <a className={`${!navOpen && "scale-0"}`}>{name}</a>
+        </div>
+        <NavMenuHeader pages={pages} navOpen={navOpen} />
+      </div>
       <main>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }

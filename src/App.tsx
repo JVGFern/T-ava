@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { GoGear, GoBell, GoSignOut,  GoBook} from "react-icons/go";
+
 
 import LandPage from "./pages/LandPage";
 
@@ -11,18 +13,21 @@ import NavMenu, { Page } from "./templates/NavMenu";
 const pagesRoutes: Page[] = [
   {
     path: "/notifications",
-    element: <UserNotification />,
+    element: <UserNotification/>,
     name: "Notificações",
+    icon: <GoBell className="float-left block"/>
   },
   {
     path: "/userconfig",
     element: <UserConfig />,
     name: "Configurações",
+    icon: <GoGear className="float-left block"/>
   },
   {
     path: "/services",
     element: <Services />,
     name: "Serviços",
+    icon: <GoBook className="float-left block"/>
   },
 ];
 
@@ -33,7 +38,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <NavMenu name="T-ava" pages={pagesRoutes} />,
+    element: <NavMenu name="T-AVA" pages={pagesRoutes} />,
     children: pagesRoutes,
   },
 ]);
