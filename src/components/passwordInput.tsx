@@ -8,18 +8,19 @@ export default function PasswordInput() {
   };
 
   return (
-    <div>
-      <label>Senha:</label>
-      <input
-        name="password"
-        type="password"
-        value={password}
-        onChange={handleChange}
-        placeholder="Senha"
-        className={
-          "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"
-        }
-      />
-    </div>
+    <div className="mb-6">
+    <label htmlFor="password" className="text-gray-700 block mb-2">
+      Senha:
+    </label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      value={password}
+      onChange={handleChange}
+      placeholder="Senha"
+      className="w-full p-2 text-gray-800 border border-gray-300 rounded outline-none text-sm focus:border-green-500"
+    />
+  </div>
   );
 }

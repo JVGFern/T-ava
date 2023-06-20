@@ -8,17 +8,18 @@ export default function UsernameInput() {
   };
 
   return (
-    <div>
-      <label className="text-left">Usuário:</label>
+    <div className="mb-4">
+      <label htmlFor="username" className="text-gray-700 block mb-2">
+        Usuário:
+      </label>
       <input
+        id="username"
         name="username"
         type="text"
         value={username}
         onChange={handleChange}
         placeholder="Usuário"
-        className={
-          "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"
-        }
+        className="w-full p-2 text-gray-800 border border-gray-300 rounded outline-none text-sm focus:border-green-500"
       />
     </div>
   );
