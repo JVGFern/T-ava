@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import UsernameInput from "./usernameInput";
 import PasswordInput from "./passwordInput";
 
@@ -19,9 +20,9 @@ export default function LoginForm() {
     <div className="mt-4 text-center">
       <p className="text-gray-600">
         Precisa se registrar?{" "}
-        <a href="#" className="text-green-500 hover:underline">
+        <Link  to="/signup" className="text-green-500 hover:underline">
           Cadastre-se gratuitamente
-        </a>
+        </Link>
       </p>
     </div>
   </form>
