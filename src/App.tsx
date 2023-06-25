@@ -1,40 +1,49 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Playground } from "./components/Playground";
-import LandPage from "./pages/LandPage";
+import Sidebar from "./components/sidebar/Sidebar";
 import UserConfig from "./pages/UserConfig";
 import UserNotification from "./pages/UserNotification";
 import Services from "./pages/Services";
 
-import Navigation, { Page } from "./components/Navigation";
-
-const pagesRoutes: Page[] = [
-  {
-    path: "/notifications",
-    element: <UserNotification/>,
-    name: "Notificações"
-  },
-  {
-    path: "/userconfig",
-    element: <UserConfig />,
-    name: "Configurações"
-  },
-  {
-    path: "/services",
-    element: <Services />,
-    name: "Serviços"
-  },
-];
+import Navigation from "./components/Navigation";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
+import Home from "./pages/home";
 
 const router = createBrowserRouter([
   {
     path: "/test",
-    element: <Playground />,
+    element: <Sidebar />,
   },
   {
-    path: "/",
-    element: <Navigation pages={pagesRoutes} />,
-    children: pagesRoutes,
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/portal",
+    element: <Navigation />,
+    children: [
+      {
+        path: "/portal/home",
+        element: <Home />,
+      },
+      {
+        path: "/portal/notifications",
+        element: <UserNotification />,
+      },
+      {
+        path: "/portal/userconfig",
+        element: <UserConfig />,
+      },
+      {
+        path: "/portal/services",
+        element: <Services />,
+      },
+    ],
   },
 ]);
 
