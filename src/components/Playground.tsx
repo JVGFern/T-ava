@@ -1,18 +1,21 @@
 import React from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu, menuClasses, MenuItemStyles } from 'react-pro-sidebar';
-import { SidebarHeader } from './test/SidebarHeader';
-import { SidebarFooter } from './test/SidebarFooter';
-import { Badge } from './test/Badge';
-import { Typography } from './test/Typography';
+import { SidebarHeader } from './sidebar/SidebarHeader';
+import { SidebarUser } from './sidebar/SidebarUser';
+import { SidebarFooter } from './sidebar/SidebarFooter';
+import { Badge } from './sidebar/Badge';
+import { Typography } from './sidebar/Typography';
+import { Switch } from './sidebar/Switch';
+import { PackageBadges } from './sidebar/PackageBadges';
 
-// import { Diamond } from './icons/Diamond';
-// import { BarChart } from './icons/BarChart';
-// import { Global } from './icons/Global';
-// import { InkBottle } from './icons/InkBottle';
-// import { Book } from './icons/Book';
-// import { Calendar } from './icons/Calendar';
-// import { ShoppingCart } from './icons/ShoppingCart';
-// import { Service } from './icons/Service';
+import { Diamond } from './icons/Diamond';
+import { BarChart } from './icons/BarChart';
+import { Global } from './icons/Global';
+import { InkBottle } from './icons/InkBottle';
+import { Book } from './icons/Book';
+import { Calendar } from './icons/Calendar';
+import { ShoppingCart } from './icons/ShoppingCart';
+import { Service } from './icons/Service';
 type Theme = 'light' | 'dark';
 
 const themes = {
@@ -134,7 +137,8 @@ export const Playground: React.FC = () => {
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          <SidebarHeader rtl={rtl} style={{ marginBottom: '24px', marginTop: '16px' }} />
+          <SidebarHeader rtl={rtl} collapsed={collapsed} setCollapsed={setCollapsed} style={{ marginBottom: '5px', marginTop: '16px' }} />
+          <SidebarUser rtl={rtl} collapsed={collapsed} setCollapsed={setCollapsed} style={{ marginBottom: '24px', marginTop: '5px' }} />
           <div style={{ flex: 1, marginBottom: '32px' }}>
             <div style={{ padding: '0 24px', marginBottom: '8px' }}>
               <Typography
@@ -148,7 +152,7 @@ export const Playground: React.FC = () => {
             <Menu menuItemStyles={menuItemStyles}>
               <SubMenu
                 label="Charts"
-                //icon={<BarChart />}
+                icon={<BarChart />}
                 suffix={
                   <Badge variant="danger" shape="circle">
                     6
@@ -159,15 +163,15 @@ export const Playground: React.FC = () => {
                 <MenuItem> Line charts</MenuItem>
                 <MenuItem> Bar charts</MenuItem>
               </SubMenu>
-              <SubMenu label="Maps" /*icon={<Global />}*/>
+              <SubMenu label="Maps" icon={<Global />}>
                 <MenuItem> Google maps</MenuItem>
                 <MenuItem> Open street maps</MenuItem>
               </SubMenu>
-              <SubMenu label="Theme" /*icon={<InkBottle />}*/>
+              <SubMenu label="Theme" icon={<InkBottle />}>
                 <MenuItem> Dark</MenuItem>
                 <MenuItem> Light</MenuItem>
               </SubMenu>
-              <SubMenu label="Components" /*icon={<Diamond />}*/>
+              <SubMenu label="Components" icon={<Diamond />}>
                 <MenuItem> Grid</MenuItem>
                 <MenuItem> Layout</MenuItem>
                 <SubMenu label="Forms">
@@ -179,7 +183,7 @@ export const Playground: React.FC = () => {
                   </SubMenu>
                 </SubMenu>
               </SubMenu>
-              <SubMenu label="E-commerce" /*icon={<ShoppingCart />}*/>
+              <SubMenu label="E-commerce" icon={<ShoppingCart />}>
                 <MenuItem> Product</MenuItem>
                 <MenuItem> Orders</MenuItem>
                 <MenuItem> Credit card</MenuItem>
@@ -197,11 +201,11 @@ export const Playground: React.FC = () => {
             </div>
 
             <Menu menuItemStyles={menuItemStyles}>
-              <MenuItem /*icon={<Calendar />}*/ suffix={<Badge variant="success">New</Badge>}>
+              <MenuItem icon={<Calendar />} suffix={<Badge variant="success">New</Badge>}>
                 Calendar
               </MenuItem>
-              <MenuItem /*icon={<Book />}*/>Documentation</MenuItem>
-              <MenuItem disabled /*icon={<Service />}*/>
+              <MenuItem icon={<Book />}>Documentation</MenuItem>
+              <MenuItem disabled icon={<Service />}>
                 Examples
               </MenuItem>
             </Menu>
@@ -209,6 +213,56 @@ export const Playground: React.FC = () => {
           <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
+
+      <main>
+        <div style={{ padding: '16px 24px', color: '#44596e' }}>
+          <div style={{ marginBottom: '16px' }}>
+            {broken && (
+              <button className="sb-button" onClick={() => setToggled(!toggled)}>
+                Toggle
+              </button>
+            )}
+          </div>
+          <div style={{ marginBottom: '48px' }}>
+            <Typography variant="h4" fontWeight={600}>
+              React Pro Sidebar
+            </Typography>
+            <Typography variant="body2">
+              React Pro Sidebar provides a set of components for creating high level and
+              customizable side navigation
+            </Typography>
+            <PackageBadges />
+          </div>
+
+          <div style={{ padding: '0 8px' }}>
+            <div style={{ marginBottom: 16 }}>
+              <Switch
+                id="collapse"
+                checked={collapsed}
+                onChange={() => setCollapsed(!collapsed)}
+                label="Collapse"
+              />
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <Switch id="rtl" checked={rtl} onChange={handleRTLChange} label="RTL" />
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <Switch
+                id="theme"
+                checked={theme === 'dark'}
+                onChange={handleThemeChange}
+                label="Dark theme"
+              />
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <Switch id="image" checked={hasImage} onChange={handleImageChange} label="Image" />
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
