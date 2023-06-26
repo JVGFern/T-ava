@@ -1,20 +1,36 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link,useNavigate } from "react-router-dom";
 import UsernameInput from "./usernameInput";
 import PasswordInput from "./passwordInput";
+import { UserData } from "../../data/User";
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  localStorage.removeItem("userdata");
 
   const handleLogin = () => {
+    if(username === "" || password === ""){
+      return;
+    }
+    const userData: UserData = {
+      username: username,
+      password: password,
+      userEmail: username,
+      token: `${username} : ${password}` 
+    };
+    const userDataJson = JSON.stringify(userData);
+    localStorage.setItem("userdata", userDataJson);
     navigate('/portal/home');
   };
 
   return (
-    <form className="max-w-md mx-auto bg-white rounded-lg border border-gray-300 shadow-md px-6 py-8">
+    <div className="max-w-md mx-auto bg-white rounded-lg border border-gray-300 shadow-md px-6 py-8">
     <h2 className="text-2xl font-semibold text-center mb-6">Acesse sua conta</h2>
-    <UsernameInput />
-    <PasswordInput />
+    <UsernameInput username={username} setUsername={setUsername}/>
+    <PasswordInput password={password} setPassword={setPassword}/>
     <div className="flex items-center mt-6">
       <button
         type="submit"
@@ -32,6 +48,6 @@ export default function LoginForm() {
         </Link>
       </p>
     </div>
-  </form>
+  </div>
     );
 }

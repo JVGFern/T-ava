@@ -1,7 +1,12 @@
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-export default function PasswordInput() {
-  const [password, setPassword] = useState("");
+interface PasswordInputProps {
+  password: string;
+  setPassword: Dispatch<SetStateAction<string>>;
+};
+
+export default function PasswordInput( {password, setPassword} : PasswordInputProps) {
+  //const [password, setPassword] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);

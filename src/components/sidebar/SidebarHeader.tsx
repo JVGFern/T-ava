@@ -6,7 +6,6 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 interface SidebarHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
-  rtl: boolean;
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -50,11 +49,11 @@ const StyledLogo = styled.div<{ rtl?: boolean }>`
       `}
 `;
 
-export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ children, rtl, collapsed, setCollapsed, ...rest }) => {
+export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ children, collapsed, setCollapsed, ...rest }) => {
   return (
     <StyledSidebarHeader {...rest}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <StyledLogo rtl={rtl} onClick={() => setCollapsed(!collapsed)} ><GiHamburgerMenu/></StyledLogo>
+        <StyledLogo onClick={() => setCollapsed(!collapsed)} ><GiHamburgerMenu/></StyledLogo>
         <Typography variant="subtitle1" fontWeight={700} color="#0098e5">
           T-AVA
         </Typography>

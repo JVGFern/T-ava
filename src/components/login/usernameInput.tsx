@@ -1,7 +1,12 @@
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction  } from "react";
 
-export default function UsernameInput() {
-  const [username, setUsername] = useState("");
+interface UsernameInputProps {
+  username: string;
+  setUsername: Dispatch<SetStateAction<string>>;
+};
+
+export default function UsernameInput({ username, setUsername } : UsernameInputProps) {
+  //const [username, setUsername] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);

@@ -6,9 +6,10 @@ import { FaRegUser } from "react-icons/fa";
 
 interface SidebarUserProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
-  rtl: boolean;
   collapsed: boolean;
-  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>
+  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  username: string;
+  userEmail: string;
 }
 
 const StyledSidebarHeader = styled.div`
@@ -50,15 +51,15 @@ const StyledLogo = styled.div<{ rtl?: boolean }>`
       `}
 `;
 
-export const SidebarUser: React.FC<SidebarUserProps> = ({ children, rtl, collapsed, setCollapsed, ...rest }) => {
+export const SidebarUser: React.FC<SidebarUserProps> = ({ username, userEmail, children, collapsed, setCollapsed, ...rest }) => {
   return (
     <StyledSidebarHeader {...rest}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <StyledLogo rtl={rtl} onClick={() => setCollapsed(!collapsed)} ><FaRegUser/></StyledLogo>
+        <StyledLogo onClick={() => setCollapsed(!collapsed)} ><FaRegUser/></StyledLogo>
         <Typography variant="body1" fontWeight={700} color="#0098e5">
-            Professor
+            {username}
             <Typography variant="body2" fontWeight={700} color="#0098e5">
-                email@email.com
+                {userEmail}
             </Typography>
         </Typography>
       </div>

@@ -1,46 +1,53 @@
-import React from 'react';
-import { Sidebar as LibSidebar, Menu, MenuItem, SubMenu, menuClasses, MenuItemStyles }  from 'react-pro-sidebar';
-import { GoGear, GoBell, GoSignOut, GoBook} from "react-icons/go";
-import { SidebarHeader } from './SidebarHeader';
-import { SidebarUser } from './SidebarUser';
-import { Badge } from './Badge';
-import { Typography } from './Typography';
-import { Link } from "react-router-dom";
-
-type Theme = 'light' | 'dark';
+import React, { useEffect } from "react";
+import {
+  Sidebar as LibSidebar,
+  Menu,
+  MenuItem,
+  SubMenu,
+  menuClasses,
+  MenuItemStyles,
+} from "react-pro-sidebar";
+import { GoGear, GoBell, GoSignOut, GoBook } from "react-icons/go";
+import { SidebarHeader } from "./SidebarHeader";
+import { SidebarUser } from "./SidebarUser";
+import { Badge } from "./Badge";
+import { Typography } from "./Typography";
+import { Link, useNavigate } from "react-router-dom";
+import { UserData } from "../../data/User";
+type Theme = "light" | "dark";
 
 const themes = {
   light: {
     LibSidebar: {
-      backgroundColor: '#ffffff',
-      color: '#607489',
+      backgroundColor: "#ffffff",
+      color: "#607489",
     },
     menu: {
-      menuContent: '#fbfcfd',
-      icon: '#0098e5',
+      menuContent: "#fbfcfd",
+      icon: "#0098e5",
       hover: {
-        backgroundColor: '#c5e4ff',
-        color: '#44596e',
+        backgroundColor: "#c5e4ff",
+        color: "#44596e",
       },
       disabled: {
-        color: '#9fb6cf',
+        color: "#9fb6cf",
       },
     },
   },
   dark: {
     LibSidebar: {
-      backgroundColor: '#0b2948',
-      color: '#8ba1b7',
+      backgroundColor: "#0b2948",
+      color: "#8ba1b7",
     },
     menu: {
-      menuContent: '#082440',
-      icon: '#59d0ff',
+      menuContent: "#082440",
+      icon: "#59d0ff",
       hover: {
-        backgroundColor: '#00458b',
-        color: '#b6c8d9',
+        backgroundColor: "#00458b",
+        color: "#b6c8d9",
       },
       disabled: {
-        color: '#3e5e7e',
+        color: "#3e5e7e",
       },
     },
   },
@@ -55,32 +62,41 @@ const hexToRgba = (hex: string, alpha: number) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-export default function Sidebar(){
+export default function Sidebar() {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = React.useState(false);
   const [toggled, setToggled] = React.useState(false);
-  const [broken, setBroken] = React.useState(false);
-  const [rtl, setRtl] = React.useState(false);
-  const [hasImage, setHasImage] = React.useState(false);
-  const [theme, setTheme] = React.useState<Theme>('light');
+  const [theme, setTheme] = React.useState<Theme>("light");
 
-  // handle on RTL change event
-  const handleRTLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRtl(e.target.checked);
+  const userDataJson = localStorage.getItem("userdata");
+  if (userDataJson === null) {
+    navigate("/login");
+  }
+  const userData: UserData = JSON.parse(userDataJson!);
+
+
+  const handleOpenNotification = () => {
+    navigate("/portal/notifications");
   };
 
-  // handle on theme change event
-  const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTheme(e.target.checked ? 'dark' : 'light');
+  const handleOpenServices = () => {
+    navigate("/portal/services");
+  };
+  const handleOpenUserconfig = () => {
+    navigate("/portal/userconfig");
   };
 
-  // handle on image change event
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHasImage(e.target.checked);
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
+  const handleOpenTest = () => {
+    navigate("")
   };
 
   const menuItemStyles: MenuItemStyles = {
     root: {
-      fontSize: '13px',
+      fontSize: "13px",
       fontWeight: 400,
     },
     icon: {
@@ -90,20 +106,20 @@ export default function Sidebar(){
       },
     },
     SubMenuExpandIcon: {
-      color: '#b6b7b9',
+      color: "#b6b7b9",
     },
     subMenuContent: ({ level }) => ({
       backgroundColor:
         level === 0
-          ? hexToRgba(themes[theme].menu.menuContent, hasImage && !collapsed ? 0.4 : 1)
-          : 'transparent',
+          ? hexToRgba(themes[theme].menu.menuContent, 1)
+          : "transparent",
     }),
     button: {
       [`&.${menuClasses.disabled}`]: {
         color: themes[theme].menu.disabled.color,
       },
-      '&:hover': {
-        backgroundColor: hexToRgba(themes[theme].menu.hover.backgroundColor, hasImage ? 0.8 : 1),
+      "&:hover": {
+        backgroundColor: hexToRgba(themes[theme].menu.hover.backgroundColor, 1),
         color: themes[theme].menu.hover.color,
       },
     },
@@ -113,67 +129,77 @@ export default function Sidebar(){
   };
 
   return (
-    <div style={{ display: 'flex', height: '100%', direction: rtl ? 'rtl' : 'ltr' }}>
+    <div style={{ display: "flex", height: "100%", direction: "ltr" }}>
       <LibSidebar
         collapsed={collapsed}
         toggled={toggled}
         onBackdropClick={() => setToggled(false)}
-        onBreakPoint={setBroken}
         image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
-        rtl={rtl}
         breakPoint="md"
-        backgroundColor={hexToRgba(themes[theme].LibSidebar.backgroundColor, hasImage ? 0.9 : 1)}
+        backgroundColor={hexToRgba(themes[theme].LibSidebar.backgroundColor, 1)}
         rootStyles={{
           color: themes[theme].LibSidebar.color,
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          <SidebarHeader rtl={rtl} collapsed={collapsed} setCollapsed={setCollapsed} style={{ marginBottom: '5px', marginTop: '16px' }} />
-          <SidebarUser rtl={rtl} collapsed={collapsed} setCollapsed={setCollapsed} style={{ marginBottom: '24px', marginTop: '5px' }} />
-          <div style={{ flex: 1, marginBottom: '32px' }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", height: "100%" }}
+        >
+          <SidebarHeader
+            collapsed={collapsed}
+            setCollapsed={setCollapsed}
+            style={{ marginBottom: "5px", marginTop: "16px" }}
+          />
+          <SidebarUser
+            username={userData.username}
+            userEmail={userData.userEmail}
+            collapsed={collapsed}
+            setCollapsed={setCollapsed}
+            style={{ marginBottom: "24px", marginTop: "5px" }}
+          />
+          <div style={{ flex: 1, marginBottom: "32px" }}>
             <Menu menuItemStyles={menuItemStyles}>
-              
-              <MenuItem 
+              <MenuItem
                 icon={<GoBell />}
+                onClick={handleOpenNotification}
                 suffix={
                   <Badge variant="danger" shape="circle">
                     6
                   </Badge>
                 }
               >
-                <Link to="/notifications">Notificações</Link>
+                Notificações
               </MenuItem>
 
-              <MenuItem 
-                icon={<GoBook />}
-              >
-                <Link to="/services">Serviços</Link>
-              </MenuItem>
-              
-              <MenuItem 
-                icon={<GoGear />}
-              >
-                <Link to="/userconfig">Configurações</Link>
+              <MenuItem icon={<GoBook />} onClick={handleOpenServices}>
+                Serviços
               </MenuItem>
 
-              <MenuItem 
-                icon={<GoSignOut />}
-              >
-                <Link to="/login">Sair</Link>
+              <MenuItem icon={<GoGear />} onClick={handleOpenUserconfig}>
+                Configurações
+              </MenuItem>
+
+              <MenuItem icon={<GoSignOut />} onClick={handleLogout}>
+                Sair
               </MenuItem>
             </Menu>
-            <div style={{ padding: '0 24px', marginBottom: '8px', marginTop: '32px' }}>
+            <div
+              style={{
+                padding: "0 24px",
+                marginBottom: "8px",
+                marginTop: "32px",
+              }}
+            >
               <Typography
                 variant="body2"
                 fontWeight={600}
-                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: '0.5px' }}
+                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: "0.5px" }}
               >
                 Materias
               </Typography>
             </div>
-
+            {/* parte gerada automaticamente*/}
             <Menu menuItemStyles={menuItemStyles}>
-            <SubMenu
+              <SubMenu
                 label="materia"
                 icon={""}
                 suffix={
@@ -182,7 +208,7 @@ export default function Sidebar(){
                   </Badge>
                 }
               >
-                <MenuItem> menu</MenuItem>
+                <MenuItem onClick={handleOpenTest}> Criar Prova </MenuItem>
                 <MenuItem> menu</MenuItem>
                 <MenuItem> menu</MenuItem>
               </SubMenu>
@@ -192,4 +218,4 @@ export default function Sidebar(){
       </LibSidebar>
     </div>
   );
-};
+}

@@ -1,8 +1,13 @@
-import React from 'react';
-import Header from '../components/login/header';
-import Footer from '../components/login/footer';
+import Header from '../components/home/header';
+import Footer from '../components/home/footer';
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  const handleCreateTest = () => {
+    navigate('/login');
+  };
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -16,6 +21,7 @@ export default function Home() {
         <section className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-xl font-semibold mb-4">Avaliações</h2>
           <p>Confira as próximas avaliações agendadas e seus detalhes.</p>
+          <button>awd</button>
           {/* Adicione conteúdo adicional relacionado às avaliações */}
         </section>
 
