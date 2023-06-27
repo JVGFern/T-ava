@@ -69,12 +69,12 @@ export default function Sidebar() {
   const [theme, setTheme] = React.useState<Theme>("light");
 
   const userDataJson = localStorage.getItem("userdata");
-  if (userDataJson === null) {
-    navigate("/login");
-  }
-  const userData: UserData = JSON.parse(userDataJson!);
-
-
+  let userData: UserData = JSON.parse(userDataJson!);
+  useEffect(() => {
+    if (userData === null) {
+      navigate("/login");      
+    }
+  });
   const handleOpenNotification = () => {
     navigate("/portal/notifications");
   };
@@ -90,8 +90,8 @@ export default function Sidebar() {
     navigate("/login");
   };
 
-  const handleOpenTest = () => {
-    navigate("")
+  const handleOpenTest = (id: number) => {
+    navigate(`/portal/test/${id}`);
   };
 
   const menuItemStyles: MenuItemStyles = {
@@ -150,8 +150,8 @@ export default function Sidebar() {
             style={{ marginBottom: "5px", marginTop: "16px" }}
           />
           <SidebarUser
-            username={userData.username}
-            userEmail={userData.userEmail}
+            username={userData === null ? "" : userData.username}
+            userEmail={userData === null ? "" : userData.userEmail}
             collapsed={collapsed}
             setCollapsed={setCollapsed}
             style={{ marginBottom: "24px", marginTop: "5px" }}
@@ -208,9 +208,12 @@ export default function Sidebar() {
                   </Badge>
                 }
               >
-                <MenuItem onClick={handleOpenTest}> Criar Prova </MenuItem>
-                <MenuItem> menu</MenuItem>
-                <MenuItem> menu</MenuItem>
+                <MenuItem onClick={() => handleOpenTest(1)}>
+                  Criar Prova
+                </MenuItem>
+                <MenuItem onClick={() => handleOpenTest(2)}>
+                  Fazer Prova
+                </MenuItem>
               </SubMenu>
             </Menu>
           </div>
