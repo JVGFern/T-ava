@@ -150,8 +150,8 @@ export default function Sidebar() {
             style={{ marginBottom: "5px", marginTop: "16px" }}
           />
           <SidebarUser
-            username={userData === null ? "" : userData.username}
-            userEmail={userData === null ? "" : userData.userEmail}
+            username={userData.username === null ? "" : userData.username}
+            userEmail={userData.userEmail === null ? "" : userData.userEmail}
             collapsed={collapsed}
             setCollapsed={setCollapsed}
             style={{ marginBottom: "24px", marginTop: "5px" }}
@@ -209,10 +209,12 @@ export default function Sidebar() {
                 }
               >
                 <MenuItem onClick={() => handleOpenTest(1)}>
-                  Criar Prova
+                  {" "}
+                  Criar Prova{" "}
                 </MenuItem>
                 <MenuItem onClick={() => handleOpenTest(2)}>
-                  Fazer Prova
+                  {" "}
+                  Fazer Prova{" "}
                 </MenuItem>
               </SubMenu>
             </Menu>
